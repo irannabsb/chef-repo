@@ -1,5 +1,5 @@
 
-export HOSTNM=/Users/sriram/chefhost/
+export HOSTNM=/home/chefhost/
 
 if [ -d "$HOSTNM" ];
 then
