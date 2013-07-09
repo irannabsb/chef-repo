@@ -1,0 +1,23 @@
+export HOSTSYNC=/Users/sriram/chefhost
+export LOCALHOST=/Users/sriram
+
+if [ -d "$HOSTSYNC" ];
+then
+	if [ -f "$HOSTSYNC"/hosts ]; then
+		function copier()
+		{
+			cat /dev/null >"$LOCALHOST"/host
+			cp "$HOSTSYNC"/hosts "$LOCALHOST"/host
+			if [ "$?" == "0" ];
+			then 	
+				echo "File Merged Sucessfully";
+				exit 1;
+			else
+				copier
+			fi
+		}	
+		copier
+	else
+		echo "File Merge Fails"
+	fi	
+fi

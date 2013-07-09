@@ -1,0 +1,23 @@
+
+export HOSTNM=/Users/sriram/chefhost/
+
+if [ -d "$HOSTNM" ];
+then
+	if [ -f "$HOSTNM"/network ];
+	then
+		while read line;do
+			if [ $(echo $line|cut -f 1 -d '=') == "HOSTNAME" ];
+			then
+				str="HOSTNAME="
+				sed -i.bak "/$line/d" "$HOSTNM"/network  2>>/dev/null
+				hnm=$str$(hostname)
+				echo $hnm >>$HOSTNM/network
+			fi				
+		done < $HOSTNM/network
+	else
+		echo "File Missing..."
+	fi
+else
+	echo "Directory Missing..."
+fi 
+
