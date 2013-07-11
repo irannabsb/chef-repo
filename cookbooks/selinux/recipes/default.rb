@@ -7,7 +7,9 @@
 # All rights reserved - Do Not Redistribute
 #
 
-execute "disable selinux enforcement" do
+execute "selinux-disable" do
+  only_if "selinuxenabled"
+  only_if "which selinuxenabled && selinuxenabled"
   notifies :create, "template[/etc/selinux/config]"
 end
 

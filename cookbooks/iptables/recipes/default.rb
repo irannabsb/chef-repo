@@ -8,7 +8,6 @@
 #
  
 execute "iptables-off" do
-	#command "/etc/init.d/iptables save"
-	command "/etc/init.d/iptables start"
+	command "chkconfig iptables off"
 	action :run
 end
