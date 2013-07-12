@@ -1,6 +1,7 @@
 #
+# Author:: Sean OMeara (<someara@opscode.com>)
 # Cookbook Name:: selinux
-# Recipe:: default
+# Recipe:: enforcing
 #
 # Copyright 2011, Opscode, Inc.
 #
@@ -15,4 +16,18 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+#
 
+execute "enable selinux enforcement" do
+  not_if "getenforce | egrep -qx 'Enforcing|Disabled'"
+  command "setenforce 1"
+  action :run
+end
+
+template "/etc/selinux/config" do
+  source "sysconfig/selinux.erb"
+  variables(
+    :selinux => "enforcing",
+    :selinuxtype => "targeted"
+  )
+end

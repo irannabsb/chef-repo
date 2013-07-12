@@ -1,6 +1,7 @@
 #
+# Author:: Sean OMeara (<someara@opscode.com>)
 # Cookbook Name:: selinux
-# Recipe:: default
+# Recipe:: disabled
 #
 # Copyright 2011, Opscode, Inc.
 #
@@ -15,4 +16,20 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+#
 
+execute "disable selinux enforcement" do
+  only_if "which selinuxenabled && selinuxenabled"
+  command "setenforce 0"
+  action :run
+  notifies :create, "template[/etc/selinux/config]"
+end
+
+template "/etc/selinux/config" do
+  source "sysconfig/selinux.erb"
+  variables(
+    :selinux => "disabled",
+    :selinuxtype => "targeted"
+  )
+  action :nothing
+end

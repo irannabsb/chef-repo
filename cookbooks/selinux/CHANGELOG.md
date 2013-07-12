@@ -1,12 +1,17 @@
-# CHANGELOG for selinux
+## v0.5.6:
 
-This file is used to list changes made in each version of selinux.
+* [COOK-2124] - enforcing recipe fails if selinux is disabled
 
-## 0.1.0:
+## v0.5.4:
 
-* Initial release of selinux
+* [COOK-1277] - disabled recipe fails on systems w/o selinux installed
 
-- - -
-Check the [Markdown Syntax Guide](http://daringfireball.net/projects/markdown/syntax) for help with Markdown.
+## v0.5.2:
 
-The [Github Flavored Markdown page](http://github.github.com/github-flavored-markdown/) describes the differences between markdown on github and standard markdown.
+* [COOK-789] - fix dangling commas causing syntax error on some rubies
+
+## v0.5.0:
+
+* [COOK-678] - add the selinux cookbook to the repository
+* Use main selinux config file (/etc/selinux/config)
+* Use getenforce instead of selinuxenabled for enforcing and permissive
