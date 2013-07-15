@@ -1,12 +1,16 @@
-# CHANGELOG for iptables
+## v0.12.0:
 
-This file is used to list changes made in each version of iptables.
+* [COOK-2213] - iptables disabled recipe
 
-## 0.1.0:
+## v0.11.0:
 
-* Initial release of iptables
+* [COOK-1883] - add perl package so rebuild script works
 
-- - -
-Check the [Markdown Syntax Guide](http://daringfireball.net/projects/markdown/syntax) for help with Markdown.
+## v0.10.0:
 
-The [Github Flavored Markdown page](http://github.github.com/github-flavored-markdown/) describes the differences between markdown on github and standard markdown.
+* [COOK-641] - be able to save output on rhel-family
+* [COOK-655] - use a template from other cookbooks
+
+## v0.9.3:
+
+* Current public release.

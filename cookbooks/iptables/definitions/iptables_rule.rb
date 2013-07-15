@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: iptables
-# Recipe:: default
+# Definition:: iptables_rule
 #
 # Copyright 2008-2009, Opscode, Inc.
 #
@@ -17,34 +17,20 @@
 # limitations under the License.
 #
 
-package "iptables" 
-package "perl"
-
-execute "rebuild-iptables" do
-  command "/usr/sbin/rebuild-iptables"
-  action :nothing
-end
-
-directory "/etc/iptables.d" do
-  action :create
-end
-
-cookbook_file "/usr/sbin/rebuild-iptables" do
-  source "rebuild-iptables"
-  mode 0755
-end
-
-case node[:platform]
-when "ubuntu", "debian"
-  iptables_save_file = "/etc/iptables/general"
-
-  template "/etc/network/if-pre-up.d/iptables_load" do
-    source "iptables_load.erb"
-    mode 0755
-    variables :iptables_save_file => iptables_save_file
+define :iptables_rule, :enable => true, :source => nil, :variables => {}, :cookbook => nil do
+  template_source = params[:source] ? params[:source] : "#{params[:name]}.erb"
+  
+  template "/etc/iptables.d/#{params[:name]}" do
+    source template_source
+    mode 0644
+    cookbook params[:cookbook] if params[:cookbook]
+    variables params[:variables]
+    backup false
+    notifies :run, resources(:execute => "rebuild-iptables")
+    if params[:enable]
+      action :create
+    else
+      action :delete
+    end
   end
 end
-
-
-iptables_rule "all_established"
-iptables_rule "all_icmp"
