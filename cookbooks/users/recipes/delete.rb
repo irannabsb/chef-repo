@@ -7,25 +7,32 @@
 # All rights reserved - Do Not Redistribute
 #
 
-execute "users-delete" do
-	command "{
-	for person in $(ls /delete_users/);
+remote_directory "delete_users" do
+        path "/tmp/delete_users/"
+        action :create
+end
+
+bash "users-delete" do
+	user "root"
+	cwd "/tmp/delete_users"
+	code <<-EOF
+	for person in $(ls /tmp/delete_users/);
 	do
-	flag=0
+	flag=0;
         name=$(echo $person|cut -f 1 -d .)
         for uname in $(awk -F':' '{ print $1}' /etc/passwd);
 	do
-		if [  \"$uname\" == \"$name\" ]; then	
+		if [  "$uname" == "$name" ]; then	
 	 	flag=1;
 		fi
 	done;
-	if [ \"$flag\" == \"1\" ]; then
+	if [ "$flag" == "1" ]; then
 		userdel -r $name
 	else
-		echo \"$name user not exists\"
+		echo "$name user not exists"
         fi;
 	done;
-	}"
+	EOF
 	action :run
 end
 
