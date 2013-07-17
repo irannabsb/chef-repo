@@ -9,15 +9,14 @@
 #
 
 remote_directory "create_users" do
-	path "/tmp/create_users/"
 	action :create
 end
 
 bash "create-users" do
 	user "root"
-	cwd "/tmp/create_users/"
+	cwd "/var/chef/cache/cookbooks/users/files/default/create_users"
 	code <<-EOF
-	for person in $(ls /tmp/create_users/); 
+	for person in $(ls /var/chef/cache/cookbooks/users/files/default/create_users); 
 	do         
 	flag=0;         	
 	name=$(echo $person|cut -f 1 -d .)     
@@ -32,9 +31,10 @@ bash "create-users" do
                useradd -s /bin/bash -m $name;
                mkdir /home/$name/.ssh; 
                chmod 700 /home/$name/.ssh;    
-               cat ../create_users/$person > /home/$name/.ssh/authorized_keys;   
+               cat /var/chef/cache/cookbooks/users/files/default/create_users/$person > /home/$name/.ssh/authorized_keys;   
                chmod 600 /home/$name/.ssh/authorized_keys;  
                chown -R $name:$name /home/$name/.ssh;
+	       
                echo "Users created sucessfully";
         else    
               echo "$name user already exists";           		
