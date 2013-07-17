@@ -8,25 +8,24 @@
 #
 #
 remote_directory "etc" do
-	path "/tmp/etc/"
 	action :create
 end
 
 
 bash "host-sync" do
 	user "root"
-	cwd "/tmp/etc"
+	cwd "/var/chef/cache/cookbooks/hosts/files/default/etc"
 	code <<-EOH
-	if [ -d /tmp/etc/ ]; then
-        	if [ -f /tmp/etc/pro_hosts ]; then
-                cp /tmp/etc/pro_hosts /tmp/etc/tmphosts
+	if [ -d /var/chef/cache/cookbooks/hosts/files/default/etc ]; then
+        	if [ -f /var/chef/cache/cookbooks/hosts/files/default/etc/pro_hosts ]; then
+                cp /var/chef/cache/cookbooks/hosts/files/default/etc/pro_hosts /var/chef/cache/cookbooks/hosts/files/default/etc/tmphosts
                 while read line; do
-                        sed -i "/$line/d" /tmp/etc/tmphosts 2>>/dev/null
+                        sed -i "/$line/d" /var/chef/cache/cookbooks/hosts/files/default/etc/tmphosts 2>>/dev/null
                 done < /etc/hosts
-                cat /tmp/etc/tmphosts >> /etc/hosts
-                grep -v "^$" /etc/hosts > /tmp/etc/tmphosts
-                cp /tmp/etc/tmphosts /etc/hosts
-                rm /tmp/etc/tmphosts
+                cat /var/chef/cache/cookbooks/hosts/files/default/etc/tmphosts >> /etc/hosts
+                grep -v "^$" /etc/hosts > /var/chef/cache/cookbooks/hosts/files/default/etc/tmphosts
+                cp /var/chef/cache/cookbooks/hosts/files/default/etc/tmphosts /etc/hosts
+                rm /var/chef/cache/cookbooks/hosts/files/default/etc/tmphosts
         else
                 echo "Failed to merge";
         fi

@@ -28,3 +28,4 @@ fe80::1%lo0	loopback6.localdomain   loopback6
 10.0.0.12	int-dev-hb-dn-012.mbiux.com	dev-hb-dn-012
 10.1.1.12  	int-dev-hb-do-012.mbiux.com     dev-hb-do-012
 10.2.2.2        int-dev-no-002.mbiux.com         dev-no-002
+10.3.4.4        int-dev-no-004.mbiux.com         dev-no-004
