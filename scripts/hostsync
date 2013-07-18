@@ -6,7 +6,6 @@ then
 	if [ -f "$HOSTSYNC"/hosts ]; then
 		function copier()
 		{
-			cat /dev/null >"$LOCALHOST"/host
 			cp "$HOSTSYNC"/hosts "$LOCALHOST"/host
 			if [ "$?" == "0" ];
 			then 	

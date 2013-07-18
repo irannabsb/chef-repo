@@ -1,7 +1,7 @@
-name             'selinux'
-maintainer       'YOUR_COMPANY_NAME'
-maintainer_email 'YOUR_EMAIL'
-license          'All rights reserved'
-description      'Installs/Configures selinux'
+name             "selinux"
+maintainer       "Opscode, Inc."
+maintainer_email "someara@opscode.com"
+license          "Apache"
+description      "Installs/Configures selinux"
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version          '0.1.0'
+version          "0.5.6"
