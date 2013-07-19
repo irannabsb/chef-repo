@@ -6,16 +6,15 @@
 #
 # All rights reserved - Do Not Redistribute
 #
-remote_directory "delete_users" do
-	path "/tmp/delete_users"
+remote_directory "delete-users" do
         action :create
 end
 
 bash "delete-users" do
         user "root"
-        cwd "/tmp/delete_users"
+        cwd "/var/chef/cache/cookbooks/users/files/default/delete-users"
         code <<-EOF
-        for person in $(ls /tmp/delete_users); 
+        for person in $(ls); 
         do         
         flag=0;                 
         name=$(echo $person|cut -f 1 -d .)     
@@ -33,7 +32,6 @@ bash "delete-users" do
 		echo "$name user not exists"
         fi;
 	done;
-	rm -r /tmp/delete_users
 	EOF
 	action :run
 end
