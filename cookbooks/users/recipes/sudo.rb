@@ -9,8 +9,11 @@ bash "sudo-users" do
 	code <<-EOF
 	for person in $(ls /var/chef/cache/cookbooks/users/files/default/sudo_users); 
 	do       
-		name=$(echo $person|cut -f 1 -d .)   
-		usermod -aG sudoers $name
+		name=$(echo $person|cut -f 1 -d .)  
+		cat /etc/passwd | grep $name 2>>/dev/null
+		if [ "$?" == "0" ]; then 
+			usermod -aG sudoers $name
+		fi
 	done
 	EOF
 	action :run
