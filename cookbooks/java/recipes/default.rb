@@ -17,6 +17,8 @@ bash "install-java" do
 	user "root"
 	cwd "/var/chef/cache/cookbooks/java/files/default/java"
 	code <<-EOH
+	tar -xzvf java.tar.gz
+	cd java
 	chmod +x jdk-6u45-linux-x64-rpm.bin
 	./jdk-6u45-linux-x64-rpm.bin
  
