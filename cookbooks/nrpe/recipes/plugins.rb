@@ -6,3 +6,4 @@ end
 package "nagios-plugins-all" do
 	action :install
 end
+
